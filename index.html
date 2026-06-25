@@ -265,30 +265,30 @@
             <div class="disclaimer">
                 ⚠️ <strong>Importante:</strong> Una vez que enviás tu pronóstico, no se puede cambiar. Verificá que todo esté correcto antes de hacer click.
             </div>
-            <form id="pronostico-form" name="pronostico" method="POST" netlify>
+            <form id="pronostico-form">
                 <div class="form-group">
                     <label>Tu apodo</label>
-                    <input type="text" name="apodo" placeholder="ej: Tía Marta" required>
+                    <input type="text" id="apodo" placeholder="ej: Tía Marta" required>
                 </div>
 
                 <div class="form-group">
                     <label>Fecha de nacimiento</label>
-                    <input type="date" name="fecha" min="2026-01-01" max="2026-12-31" required>
+                    <input type="date" id="fecha" min="2026-01-01" max="2026-12-31" required>
                 </div>
 
                 <div class="form-group">
                     <label>Hora de nacimiento</label>
-                    <input type="time" name="hora" required>
+                    <input type="time" id="hora" required>
                 </div>
 
                 <div class="form-group">
                     <label>Peso (kg)</label>
-                    <input type="number" name="peso" placeholder="ej: 3.5" step="0.1" required>
+                    <input type="number" id="peso" placeholder="ej: 3.5" step="0.1" required>
                 </div>
 
                 <div class="form-group">
                     <label>Tipo de parto</label>
-                    <select name="parto" required>
+                    <select id="parto" required>
                         <option value="">-- Selecciona --</option>
                         <option value="natural">Natural</option>
                         <option value="cesárea">Cesárea</option>
@@ -303,7 +303,7 @@
         <div id="leaderboard-view" class="section hidden">
             <h2>Pronósticos hasta ahora</h2>
             <div id="pronosticos-list" class="pronosticos-list">
-                <p class="empty">Los pronósticos aparecerán aquí</p>
+                <p class="empty">Cargando...</p>
             </div>
         </div>
 
@@ -361,6 +361,7 @@
     </div>
 
     <script>
+        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx4HDwYGldGXI2ttrjvemuEUoVvUrgSIYngEsj0Ly-S5Ft8VXtTl15ECn3fzj4NQM_9fQ/exec';
         const ADMIN_PASSWORD = 'admin123';
         let pronósticos = [];
         let isAdminAuth = false;
@@ -376,7 +377,7 @@
                 document.getElementById(tab + '-view').classList.remove('hidden');
 
                 if (tab === 'leaderboard') {
-                    loadPronósticosFromStorage();
+                    fetchPronósticos();
                 }
                 if (tab === 'admin') {
                     isAdminAuth = false;
@@ -388,38 +389,56 @@
         });
 
         // Form submission
-        document.getElementById('pronostico-form').addEventListener('submit', function(e) {
+        document.getElementById('pronostico-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const apodo = this.elements['apodo'].value.trim();
-            const fecha = this.elements['fecha'].value;
-            const hora = this.elements['hora'].value;
-            const peso = this.elements['peso'].value;
-            const parto = this.elements['parto'].value;
+            const apodo = document.getElementById('apodo').value.trim();
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+            const peso = document.getElementById('peso').value;
+            const parto = document.getElementById('parto').value;
 
             // Verificar si ya existe
-            const stored = JSON.parse(localStorage.getItem('pronósticos') || '[]');
-            if (stored.some(p => p.apodo.toLowerCase() === apodo.toLowerCase())) {
+            if (pronósticos.some(p => p.apodo.toLowerCase() === apodo.toLowerCase())) {
                 showMessage('Ya hay un pronóstico registrado con este apodo. No se puede cambiar.', 'error');
                 return;
             }
 
-            // Guardar localmente
-            const newPronostico = { apodo, fecha, hora, peso, parto };
-            stored.push(newPronostico);
-            localStorage.setItem('pronósticos', JSON.stringify(stored));
+            try {
+                const response = await fetch(SHEETS_URL, {
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        apodo,
+                        fecha,
+                        hora,
+                        peso,
+                        parto
+                    })
+                });
 
-            // Limpiar form
-            this.reset();
-            showMessage('✓ ¡Pronóstico guardado!');
-            
-            // El formulario también se envía a Netlify automáticamente
+                const result = await response.json();
+                if (result.success) {
+                    document.getElementById('pronostico-form').reset();
+                    showMessage('✓ ¡Pronóstico guardado!');
+                    setTimeout(() => fetchPronósticos(), 500);
+                } else {
+                    showMessage('Error al guardar. Intentá de nuevo.', 'error');
+                }
+            } catch (err) {
+                showMessage('Error: ' + err.message, 'error');
+            }
         });
 
-        function loadPronósticosFromStorage() {
-            const stored = JSON.parse(localStorage.getItem('pronósticos') || '[]');
-            pronósticos = stored;
-            renderPronósticos();
+        async function fetchPronósticos() {
+            try {
+                const response = await fetch(SHEETS_URL);
+                const data = await response.json();
+                pronósticos = data.filter(p => p.apodo); // Filtrar vacíos
+                renderPronósticos();
+            } catch (err) {
+                console.error('Fetch error:', err);
+                showMessage('Error al cargar pronósticos', 'error');
+            }
         }
 
         function renderPronósticos() {
@@ -473,8 +492,6 @@
                 return;
             }
 
-            loadPronósticosFromStorage();
-
             const ranking = pronósticos.map(p => {
                 let puntos = 0;
 
@@ -511,7 +528,6 @@
                 return { ...p, puntos };
             }).sort((a, b) => b.puntos - a.puntos);
 
-            // Mostrar resultados
             document.getElementById('result-fecha').textContent = fechaReal;
             document.getElementById('result-hora').textContent = horaReal;
             document.getElementById('result-peso').textContent = pesoReal;
@@ -550,6 +566,9 @@
             messageDiv.classList.remove('hidden');
             setTimeout(() => messageDiv.classList.add('hidden'), 3000);
         }
+
+        // Cargar pronósticos al iniciar
+        fetchPronósticos();
     </script>
 </body>
 </html>
