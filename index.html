@@ -393,8 +393,8 @@
             e.preventDefault();
 
             const apodo = document.getElementById('apodo').value.trim();
-            const fechaInput = document.getElementById('fecha').value; // YYYY-MM-DD
-            const hora = document.getElementById('hora').value;
+            const fechaInput = document.getElementById('fecha').value;
+            const horaInput = document.getElementById('hora').value;
             const peso = document.getElementById('peso').value;
             const parto = document.getElementById('parto').value;
 
@@ -404,13 +404,20 @@
                 return;
             }
 
+            // Formatear fecha como DD/MM/YYYY
+            const fechaPartes = fechaInput.split('-');
+            const fechaFormato = `${fechaPartes[2]}/${fechaPartes[1]}/${fechaPartes[0]}`;
+            
+            // Forzar hora como texto con apóstrofe
+            const horaFormato = `'${horaInput}`;
+
             try {
                 const response = await fetch(SHEETS_URL, {
                     method: 'POST',
                     body: new URLSearchParams({
                         apodo,
-                        fecha: fechaInput,
-                        hora,
+                        fecha: fechaFormato,
+                        hora: horaFormato,
                         peso,
                         parto
                     })
@@ -499,19 +506,23 @@
             const ranking = pronósticos.map(p => {
                 let puntos = 0;
 
-                if (p.fecha === fechaReal) {
-                    const [horaP, minP] = p.hora.split(':').map(Number);
+                // Normalizar fechas para comparación
+                const fechaPronos = p.fecha.split('/').reverse().join('-');
+                
+                if (fechaPronos === fechaReal) {
+                    let horaPronos = p.hora.replace(/'/g, '').trim();
+                    const [horaP, minP] = horaPronos.split(':').map(Number);
                     const [horaR, minR] = horaReal.split(':').map(Number);
                     const minutosDiff = Math.abs((horaP * 60 + minP) - (horaR * 60 + minR));
-                    const horaEnRango = minutosDiff <= 180;
 
-                    if (horaEnRango) {
+                    if (minutosDiff <= 180) {
                         puntos += 70;
                     } else {
                         puntos += 30;
                     }
                 } else {
-                    const [horaP, minP] = p.hora.split(':').map(Number);
+                    let horaPronos = p.hora.replace(/'/g, '').trim();
+                    const [horaP, minP] = horaPronos.split(':').map(Number);
                     const [horaR, minR] = horaReal.split(':').map(Number);
                     const minutosDiff = Math.abs((horaP * 60 + minP) - (horaR * 60 + minR));
                     if (minutosDiff <= 180) {
@@ -549,7 +560,6 @@
             }).join('');
 
             document.getElementById('ranking').innerHTML = rankingHtml;
-
             document.getElementById('admin-form').classList.add('hidden');
             document.getElementById('admin-results').classList.remove('hidden');
         }
@@ -571,7 +581,6 @@
             setTimeout(() => messageDiv.classList.add('hidden'), 3000);
         }
 
-        // Cargar pronósticos al iniciar
         fetchPronósticos();
     </script>
 </body>
