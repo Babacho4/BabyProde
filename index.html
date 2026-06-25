@@ -393,7 +393,7 @@
             e.preventDefault();
 
             const apodo = document.getElementById('apodo').value.trim();
-            const fecha = document.getElementById('fecha').value;
+            const fechaInput = document.getElementById('fecha').value; // YYYY-MM-DD
             const hora = document.getElementById('hora').value;
             const peso = document.getElementById('peso').value;
             const parto = document.getElementById('parto').value;
@@ -409,7 +409,7 @@
                     method: 'POST',
                     body: new URLSearchParams({
                         apodo,
-                        fecha,
+                        fecha: fechaInput,
                         hora,
                         peso,
                         parto
@@ -433,7 +433,7 @@
             try {
                 const response = await fetch(SHEETS_URL);
                 const data = await response.json();
-                pronósticos = data.filter(p => p.apodo); // Filtrar vacíos
+                pronósticos = data.filter(p => p.apodo);
                 renderPronósticos();
             } catch (err) {
                 console.error('Fetch error:', err);
@@ -450,6 +450,10 @@
 
             list.innerHTML = pronósticos.map(p => `
                 <div class="pronostico-card">
+                    <div class="card-row">
+                        <strong>Apodo:</strong>
+                        <span>${p.apodo}</span>
+                    </div>
                     <div class="card-row">
                         <strong>Fecha:</strong>
                         <span>${p.fecha}</span>
