@@ -110,8 +110,8 @@
             color: #2c2416;
         }
 
-        .form-group input,
-        .form-group select {
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
             padding: 12px;
             border: 1px solid #d4c5b9;
             border-radius: 6px;
@@ -121,10 +121,33 @@
             background-color: #faf8f3;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
+        .form-group input:focus {
             outline: none;
             border-color: #c9a574;
+        }
+
+        .date-inputs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .date-input {
+            width: 50px;
+            padding: 12px;
+            border: 1px solid #d4c5b9;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            font-family: inherit;
+            color: #2c2416;
+            background-color: #faf8f3;
+        }
+
+        .date-separator {
+            color: #2c2416;
+            font-weight: 600;
         }
 
         button.submit-btn {
@@ -138,6 +161,7 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            width: 100%;
         }
 
         button.submit-btn:hover {
@@ -161,6 +185,44 @@
         .message.error {
             background-color: #f8d7da;
             color: #721c24;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #2c2416;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #2c2416;
+            border-radius: 50%;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        input[type="radio"]:checked {
+            background-color: #2c2416;
+        }
+
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .pronosticos-list {
@@ -193,53 +255,6 @@
             font-style: italic;
         }
 
-        .ranking-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .ranking-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            background-color: #faf8f3;
-            border-radius: 8px;
-            border: 1px solid #e0d5c7;
-            gap: 15px;
-        }
-
-        .podium {
-            font-size: 20px;
-            min-width: 30px;
-        }
-
-        .ranking-name {
-            flex: 1;
-            font-weight: 600;
-        }
-
-        .ranking-points {
-            background-color: #c9a574;
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .results-info {
-            background-color: #faf8f3;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .results-info p {
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
         .hidden {
             display: none;
         }
@@ -268,17 +283,21 @@
             <form id="pronostico-form">
                 <div class="form-group">
                     <label>Tu apodo</label>
-                    <input type="text" id="apodo" placeholder="ej: Tía Marta" required>
+                    <input type="text" id="apodo" placeholder="ej: Tío Cacho" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Fecha de nacimiento</label>
-                    <input type="date" id="fecha" min="2026-01-01" max="2026-12-31" required>
+                    <label>Fecha de nacimiento de Pedro</label>
+                    <div class="date-inputs">
+                        <input type="text" class="date-input" id="fecha-dia" placeholder="25" maxlength="2" inputmode="numeric" required>
+                        <span class="date-separator">/</span>
+                        <input type="text" class="date-input" id="fecha-mes" placeholder="07" maxlength="2" inputmode="numeric" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Hora de nacimiento</label>
-                    <input type="time" id="hora" required>
+                    <label>Hora de nacimiento de Pedro</label>
+                    <input type="text" id="hora" placeholder="ej: 11:35 AM" required>
                 </div>
 
                 <div class="form-group">
@@ -288,11 +307,38 @@
 
                 <div class="form-group">
                     <label>Tipo de parto</label>
-                    <select id="parto" required>
-                        <option value="">-- Selecciona --</option>
-                        <option value="natural">Natural</option>
-                        <option value="cesárea">Cesárea</option>
-                    </select>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="parto" value="natural" required>
+                            Natural
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="parto" value="cesárea" required>
+                            Cesárea
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pokémon inicial</label>
+                    <div class="pokemon-grid">
+                        <label class="radio-label">
+                            <input type="radio" name="pokemon" value="bulbasaur" required>
+                            🌱 Bulbasaur
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pokemon" value="squirtle" required>
+                            💧 Squirtle
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pokemon" value="charmander" required>
+                            🔥 Charmander
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pokemon" value="pikachu" required>
+                            ⚡ Pikachu
+                        </label>
+                    </div>
                 </div>
 
                 <button type="submit" class="submit-btn">✓ Enviar pronóstico</button>
@@ -321,12 +367,16 @@
                 <h2>Ingresá los datos reales del bebé</h2>
                 <div class="form-group">
                     <label>Fecha de nacimiento</label>
-                    <input type="date" id="fecha-real" min="2026-01-01" max="2026-12-31">
+                    <div class="date-inputs">
+                        <input type="text" class="date-input" id="fecha-real-dia" placeholder="25" maxlength="2" inputmode="numeric">
+                        <span class="date-separator">/</span>
+                        <input type="text" class="date-input" id="fecha-real-mes" placeholder="07" maxlength="2" inputmode="numeric">
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Hora</label>
-                    <input type="time" id="hora-real">
+                    <input type="text" id="hora-real" placeholder="ej: 11:35 AM">
                 </div>
 
                 <div class="form-group">
@@ -336,11 +386,16 @@
 
                 <div class="form-group">
                     <label>Tipo de parto</label>
-                    <select id="parto-real">
-                        <option value="">-- Selecciona --</option>
-                        <option value="natural">Natural</option>
-                        <option value="cesárea">Cesárea</option>
-                    </select>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="parto-real" value="natural">
+                            Natural
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="parto-real" value="cesárea">
+                            Cesárea
+                        </label>
+                    </div>
                 </div>
 
                 <button class="submit-btn" onclick="calcularResultados()">📊 Calcular resultados</button>
@@ -348,13 +403,13 @@
 
             <div id="admin-results" class="hidden">
                 <h2>🏆 Resultados finales</h2>
-                <div class="results-info">
+                <div style="background-color: #faf8f3; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
                     <p><strong>Fecha real:</strong> <span id="result-fecha"></span></p>
                     <p><strong>Hora real:</strong> <span id="result-hora"></span></p>
                     <p><strong>Peso real:</strong> <span id="result-peso"></span> kg</p>
                     <p><strong>Parto:</strong> <span id="result-parto"></span></p>
                 </div>
-                <div id="ranking" class="ranking-container"></div>
+                <div id="ranking" class="pronosticos-list"></div>
                 <button class="submit-btn" onclick="resetAdmin()" style="margin-top: 20px;">Recalcular</button>
             </div>
         </div>
@@ -393,10 +448,13 @@
             e.preventDefault();
 
             const apodo = document.getElementById('apodo').value.trim();
-            const fechaInput = document.getElementById('fecha').value;
-            const horaInput = document.getElementById('hora').value;
+            const fecha_dia = document.getElementById('fecha-dia').value.padStart(2, '0');
+            const fecha_mes = document.getElementById('fecha-mes').value.padStart(2, '0');
+            const fecha = `'${fecha_dia}/${fecha_mes}`;
+            const hora = `'${document.getElementById('hora').value}`;
             const peso = document.getElementById('peso').value;
-            const parto = document.getElementById('parto').value;
+            const parto = document.querySelector('input[name="parto"]:checked').value;
+            const pokemon = document.querySelector('input[name="pokemon"]:checked').value;
 
             // Verificar si ya existe
             if (pronósticos.some(p => p.apodo.toLowerCase() === apodo.toLowerCase())) {
@@ -404,22 +462,16 @@
                 return;
             }
 
-            // Formatear fecha como DD/MM/YYYY
-            const fechaPartes = fechaInput.split('-');
-            const fechaFormato = `${fechaPartes[2]}/${fechaPartes[1]}/${fechaPartes[0]}`;
-            
-            // Forzar hora como texto con apóstrofe
-            const horaFormato = `'${horaInput}`;
-
             try {
                 const response = await fetch(SHEETS_URL, {
                     method: 'POST',
                     body: new URLSearchParams({
                         apodo,
-                        fecha: fechaFormato,
-                        hora: horaFormato,
+                        fecha,
+                        hora,
                         peso,
-                        parto
+                        parto,
+                        pokemon
                     })
                 });
 
@@ -444,7 +496,6 @@
                 renderPronósticos();
             } catch (err) {
                 console.error('Fetch error:', err);
-                showMessage('Error al cargar pronósticos', 'error');
             }
         }
 
@@ -457,26 +508,12 @@
 
             list.innerHTML = pronósticos.map(p => `
                 <div class="pronostico-card">
-                    <div class="card-row">
-                        <strong>Apodo:</strong>
-                        <span>${p.apodo}</span>
-                    </div>
-                    <div class="card-row">
-                        <strong>Fecha:</strong>
-                        <span>${p.fecha}</span>
-                    </div>
-                    <div class="card-row">
-                        <strong>Hora:</strong>
-                        <span>${p.hora}</span>
-                    </div>
-                    <div class="card-row">
-                        <strong>Peso:</strong>
-                        <span>${p.peso} kg</span>
-                    </div>
-                    <div class="card-row">
-                        <strong>Parto:</strong>
-                        <span>${p.parto}</span>
-                    </div>
+                    <div class="card-row"><strong>Apodo:</strong> <span>${p.apodo}</span></div>
+                    <div class="card-row"><strong>Fecha:</strong> <span>${p.fecha}</span></div>
+                    <div class="card-row"><strong>Hora:</strong> <span>${p.hora}</span></div>
+                    <div class="card-row"><strong>Peso:</strong> <span>${p.peso} kg</span></div>
+                    <div class="card-row"><strong>Parto:</strong> <span>${p.parto}</span></div>
+                    <div class="card-row"><strong>Pokémon:</strong> <span>${p.pokemon}</span></div>
                 </div>
             `).join('');
         }
@@ -493,27 +530,29 @@
         }
 
         function calcularResultados() {
-            const fechaReal = document.getElementById('fecha-real').value;
+            const fecha_dia = document.getElementById('fecha-real-dia').value.padStart(2, '0');
+            const fecha_mes = document.getElementById('fecha-real-mes').value.padStart(2, '0');
+            const fechaReal = `${fecha_dia}/${fecha_mes}`;
             const horaReal = document.getElementById('hora-real').value;
             const pesoReal = document.getElementById('peso-real').value;
-            const partoReal = document.getElementById('parto-real').value;
+            const partoReal = document.querySelector('input[name="parto-real"]:checked').value;
 
             if (!fechaReal || !horaReal || !pesoReal || !partoReal) {
                 showMessage('Completá todos los datos reales', 'error');
                 return;
             }
 
+            fetchPronósticos();
+
             const ranking = pronósticos.map(p => {
                 let puntos = 0;
+                const fechaP = p.fecha.replace(/'/g, '').trim();
 
-                // Normalizar fechas para comparación
-                const fechaPronos = p.fecha.split('/').reverse().join('-');
-                
-                if (fechaPronos === fechaReal) {
-                    let horaPronos = p.hora.replace(/'/g, '').trim();
-                    const [horaP, minP] = horaPronos.split(':').map(Number);
-                    const [horaR, minR] = horaReal.split(':').map(Number);
-                    const minutosDiff = Math.abs((horaP * 60 + minP) - (horaR * 60 + minR));
+                if (fechaP === fechaReal) {
+                    let horaP = p.hora.replace(/'/g, '').trim();
+                    const [horaP_h, horaP_m] = horaP.split(':').map(Number);
+                    const [horaR_h, horaR_m] = horaReal.split(':').map(Number);
+                    const minutosDiff = Math.abs((horaP_h * 60 + horaP_m) - (horaR_h * 60 + horaR_m));
 
                     if (minutosDiff <= 180) {
                         puntos += 70;
@@ -521,10 +560,10 @@
                         puntos += 30;
                     }
                 } else {
-                    let horaPronos = p.hora.replace(/'/g, '').trim();
-                    const [horaP, minP] = horaPronos.split(':').map(Number);
-                    const [horaR, minR] = horaReal.split(':').map(Number);
-                    const minutosDiff = Math.abs((horaP * 60 + minP) - (horaR * 60 + minR));
+                    let horaP = p.hora.replace(/'/g, '').trim();
+                    const [horaP_h, horaP_m] = horaP.split(':').map(Number);
+                    const [horaR_h, horaR_m] = horaReal.split(':').map(Number);
+                    const minutosDiff = Math.abs((horaP_h * 60 + horaP_m) - (horaR_h * 60 + horaR_m));
                     if (minutosDiff <= 180) {
                         puntos += 20;
                     }
@@ -551,15 +590,20 @@
             const rankingHtml = ranking.map((p, idx) => {
                 const podium = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
                 return `
-                    <div class="ranking-item">
-                        <span class="podium">${podium}</span>
-                        <span class="ranking-name">${p.apodo}</span>
-                        <span class="ranking-points">${p.puntos} pts</span>
+                    <div class="pronostico-card">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 20px; min-width: 30px;">${podium}</span>
+                            <div style="flex: 1;">
+                                <strong>${p.apodo}</strong>
+                            </div>
+                            <span style="background-color: #c9a574; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600;">${p.puntos} pts</span>
+                        </div>
                     </div>
                 `;
             }).join('');
 
             document.getElementById('ranking').innerHTML = rankingHtml;
+
             document.getElementById('admin-form').classList.add('hidden');
             document.getElementById('admin-results').classList.remove('hidden');
         }
@@ -567,16 +611,12 @@
         function resetAdmin() {
             document.getElementById('admin-form').classList.remove('hidden');
             document.getElementById('admin-results').classList.add('hidden');
-            document.getElementById('fecha-real').value = '';
-            document.getElementById('hora-real').value = '';
-            document.getElementById('peso-real').value = '';
-            document.getElementById('parto-real').value = '';
         }
 
         function showMessage(text, type = 'success') {
             const messageDiv = document.getElementById('message');
             messageDiv.textContent = text;
-            messageDiv.className = `section message ${type === 'error' ? 'error' : ''}`;
+            messageDiv.className = `section ${type === 'error' ? 'message error' : 'message'}`;
             messageDiv.classList.remove('hidden');
             setTimeout(() => messageDiv.classList.add('hidden'), 3000);
         }
