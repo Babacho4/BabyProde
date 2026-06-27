@@ -450,8 +450,8 @@
             const apodo = document.getElementById('apodo').value.trim();
             const fecha_dia = document.getElementById('fecha-dia').value.padStart(2, '0');
             const fecha_mes = document.getElementById('fecha-mes').value.padStart(2, '0');
-            const fecha = `'${fecha_dia}/${fecha_mes}`;
-            const hora = `'${document.getElementById('hora').value}`;
+            const fecha = `${fecha_dia}/${fecha_mes}`;
+            const hora = document.getElementById('hora').value;
             const peso = document.getElementById('peso').value;
             const parto = document.querySelector('input[name="parto"]:checked').value;
             const pokemon = document.querySelector('input[name="pokemon"]:checked').value;
