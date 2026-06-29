@@ -5,22 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prode del Bebé</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
             background-color: #faf8f3;
             color: #2c2416;
-        }
-
-        .container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
 
         .header {
@@ -30,22 +20,15 @@
             color: #fff;
         }
 
-        .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
+        .header h1 { font-size: 32px; margin-bottom: 8px; }
+        .header p  { font-size: 16px; opacity: 0.9; }
 
         .nav {
             display: flex;
             justify-content: center;
             gap: 10px;
-            padding: 20px;
-            background-color: #fff;
+            padding: 16px 20px;
+            background: #fff;
             border-bottom: 1px solid #e0d5c7;
             flex-wrap: wrap;
         }
@@ -53,42 +36,31 @@
         .nav button {
             padding: 10px 20px;
             border: none;
-            background-color: #f0ebe3;
+            background: #f0ebe3;
             color: #2c2416;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
 
-        .nav button.active {
-            background-color: #c9a574;
-            color: #fff;
-        }
-
-        .nav button:hover {
-            opacity: 0.8;
-        }
+        .nav button.active { background: #c9a574; color: #fff; }
+        .nav button:hover  { opacity: 0.8; }
 
         .section {
             max-width: 600px;
             margin: 30px auto;
             padding: 30px;
-            background-color: #fff;
+            background: #fff;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .section h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 22px;
-            color: #c9a574;
-        }
+        .section h2 { font-size: 22px; color: #c9a574; margin-bottom: 20px; }
 
         .disclaimer {
             padding: 15px;
-            background-color: #fff3cd;
+            background: #fff3cd;
             border: 1px solid #ffc107;
             border-radius: 8px;
             color: #856404;
@@ -97,44 +69,37 @@
             line-height: 1.6;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-        }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
 
         .form-group label {
             margin-bottom: 8px;
             font-weight: 600;
             font-size: 14px;
-            color: #2c2416;
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="number"] {
+        input[type="text"],
+        input[type="number"],
+        input[type="password"] {
             padding: 12px;
             border: 1px solid #d4c5b9;
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
             color: #2c2416;
-            background-color: #faf8f3;
+            background: #faf8f3;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: #c9a574;
-        }
+        input:focus { outline: none; border-color: #c9a574; }
 
-        .date-inputs {
+        .date-row {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 4px;
         }
 
-        .date-input {
-            width: 50px;
+        .date-box {
+            width: 56px;
             padding: 12px;
             border: 1px solid #d4c5b9;
             border-radius: 6px;
@@ -142,55 +107,15 @@
             text-align: center;
             font-family: inherit;
             color: #2c2416;
-            background-color: #faf8f3;
+            background: #faf8f3;
         }
 
-        .date-separator {
-            color: #2c2416;
-            font-weight: 600;
-        }
-
-        button.submit-btn {
-            padding: 14px;
-            background-color: #c9a574;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        button.submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        button.submit-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .message {
-            padding: 15px;
-            background-color: #d4edda;
-            color: #155724;
-            border-radius: 6px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
+        .date-box:focus { outline: none; border-color: #c9a574; }
 
         .radio-group {
             display: flex;
             gap: 15px;
-            margin-top: 10px;
+            margin-top: 8px;
             flex-wrap: wrap;
         }
 
@@ -200,7 +125,6 @@
             gap: 8px;
             cursor: pointer;
             font-size: 14px;
-            color: #2c2416;
         }
 
         input[type="radio"] {
@@ -209,31 +133,62 @@
             height: 20px;
             border: 2px solid #2c2416;
             border-radius: 50%;
-            background-color: #fff;
+            background: #fff;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background 0.2s;
+            flex-shrink: 0;
         }
 
-        input[type="radio"]:checked {
-            background-color: #2c2416;
-        }
+        input[type="radio"]:checked { background: #2c2416; }
 
         .pokemon-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+            margin-top: 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #c9a574;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
             margin-top: 10px;
+            transition: opacity 0.2s;
         }
 
-        .pronosticos-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .submit-btn:hover    { opacity: 0.9; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #d4edda;
+            color: #155724;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            transition: opacity 0.4s;
         }
 
-        .pronostico-card {
+        .toast.error   { background: #f8d7da; color: #721c24; }
+        .toast.hidden  { opacity: 0; pointer-events: none; }
+
+        .card-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .card {
             padding: 15px;
-            background-color: #faf8f3;
+            background: #faf8f3;
             border-radius: 8px;
             border: 1px solid #e0d5c7;
         }
@@ -241,387 +196,358 @@
         .card-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 14px;
         }
 
-        .card-row strong {
+        .card-row:last-child { margin-bottom: 0; }
+        .card-row strong { font-weight: 600; }
+
+        .badge {
+            background: #c9a574;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        .empty {
-            text-align: center;
-            color: #8b7d6b;
-            font-style: italic;
-        }
-
-        .hidden {
-            display: none;
-        }
+        .empty { text-align: center; color: #8b7d6b; font-style: italic; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🍼 Prode del Bebé</h1>
-            <p>¿Cuándo llega?</p>
+
+    <div class="header">
+        <h1>🍼 Prode del Bebé</h1>
+        <p>¿Cuándo llega?</p>
+    </div>
+
+    <div class="nav">
+        <button class="nav-btn active" data-view="form-view">Hacer pronóstico</button>
+        <button class="nav-btn"        data-view="list-view">Ver apuestas</button>
+        <button class="nav-btn"        data-view="admin-view">Admin</button>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- FORM -->
+    <div id="form-view" class="section">
+        <div class="disclaimer">
+            ⚠️ <strong>Importante:</strong> Una vez que enviás tu pronóstico, no se puede cambiar. Verificá todo antes de enviar.
+        </div>
+        <form id="pronostico-form">
+            <div class="form-group">
+                <label>Tu apodo</label>
+                <input type="text" id="apodo" placeholder="ej: Tío Cacho" required>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha de nacimiento de Pedro</label>
+                <div class="date-row">
+                    <input type="text" class="date-box" id="fecha-dia" placeholder="25" maxlength="2" inputmode="numeric" required>
+                    <span style="font-weight:600">/</span>
+                    <input type="text" class="date-box" id="fecha-mes" placeholder="07" maxlength="2" inputmode="numeric" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Hora de nacimiento de Pedro</label>
+                <input type="text" id="hora" placeholder="ej: 11:35" required>
+            </div>
+
+            <div class="form-group">
+                <label>Peso (kg)</label>
+                <input type="number" id="peso" placeholder="ej: 3.5" step="0.1" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de parto</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="parto" value="natural"> Natural</label>
+                    <label class="radio-label"><input type="radio" name="parto" value="cesárea"> Cesárea</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pokémon inicial</label>
+                <div class="pokemon-grid">
+                    <label class="radio-label"><input type="radio" name="pokemon" value="bulbasaur"> 🌱 Bulbasaur</label>
+                    <label class="radio-label"><input type="radio" name="pokemon" value="squirtle">  💧 Squirtle</label>
+                    <label class="radio-label"><input type="radio" name="pokemon" value="charmander">🔥 Charmander</label>
+                    <label class="radio-label"><input type="radio" name="pokemon" value="pikachu">   ⚡ Pikachu</label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">✓ Enviar pronóstico</button>
+        </form>
+    </div>
+
+    <!-- LIST -->
+    <div id="list-view" class="section hidden">
+        <h2>Pronósticos hasta ahora</h2>
+        <div id="pronosticos-list" class="card-list">
+            <p class="empty">Cargando...</p>
+        </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="admin-view" class="section hidden">
+        <div id="admin-login">
+            <h2>Admin</h2>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="admin-password" placeholder="Ingresá la contraseña">
+            </div>
+            <button class="submit-btn" onclick="loginAdmin()">Entrar</button>
         </div>
 
-        <div class="nav">
-            <button class="nav-btn active" data-tab="form">Hacer pronóstico</button>
-            <button class="nav-btn" data-tab="leaderboard">Ver apuestas</button>
-            <button class="nav-btn" data-tab="admin">Admin</button>
+        <div id="admin-panel" class="hidden">
+            <h2>Datos reales del bebé</h2>
+            <div class="form-group">
+                <label>Fecha de nacimiento</label>
+                <div class="date-row">
+                    <input type="text" class="date-box" id="real-dia" placeholder="25" maxlength="2" inputmode="numeric">
+                    <span style="font-weight:600">/</span>
+                    <input type="text" class="date-box" id="real-mes" placeholder="07" maxlength="2" inputmode="numeric">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Hora</label>
+                <input type="text" id="real-hora" placeholder="ej: 11:35">
+            </div>
+            <div class="form-group">
+                <label>Peso (kg)</label>
+                <input type="number" id="real-peso" step="0.1" placeholder="ej: 3.5">
+            </div>
+            <div class="form-group">
+                <label>Tipo de parto</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="parto-real" value="natural"> Natural</label>
+                    <label class="radio-label"><input type="radio" name="parto-real" value="cesárea"> Cesárea</label>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="calcularResultados()">📊 Calcular resultados</button>
         </div>
 
-        <div id="message" class="section hidden"></div>
-
-        <!-- Form View -->
-        <div id="form-view" class="section">
-            <div class="disclaimer">
-                ⚠️ <strong>Importante:</strong> Una vez que enviás tu pronóstico, no se puede cambiar. Verificá que todo esté correcto antes de hacer click.
+        <div id="admin-results" class="hidden">
+            <h2>🏆 Resultados finales</h2>
+            <div class="card" style="margin-bottom:20px">
+                <div class="card-row"><strong>Fecha real:</strong>  <span id="res-fecha"></span></div>
+                <div class="card-row"><strong>Hora real:</strong>   <span id="res-hora"></span></div>
+                <div class="card-row"><strong>Peso real:</strong>   <span id="res-peso"></span> kg</div>
+                <div class="card-row"><strong>Parto:</strong>       <span id="res-parto"></span></div>
             </div>
-            <form id="pronostico-form">
-                <div class="form-group">
-                    <label>Tu apodo</label>
-                    <input type="text" id="apodo" placeholder="ej: Tío Cacho" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Fecha de nacimiento de Pedro</label>
-                    <div class="date-inputs">
-                        <input type="text" class="date-input" id="fecha-dia" placeholder="25" maxlength="2" inputmode="numeric" required>
-                        <span class="date-separator">/</span>
-                        <input type="text" class="date-input" id="fecha-mes" placeholder="07" maxlength="2" inputmode="numeric" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Hora de nacimiento de Pedro</label>
-                    <input type="text" id="hora" placeholder="ej: 11:35 AM" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Peso (kg)</label>
-                    <input type="number" id="peso" placeholder="ej: 3.5" step="0.1" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de parto</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="parto" value="natural" required>
-                            Natural
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="parto" value="cesárea" required>
-                            Cesárea
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Pokémon inicial</label>
-                    <div class="pokemon-grid">
-                        <label class="radio-label">
-                            <input type="radio" name="pokemon" value="bulbasaur" required>
-                            🌱 Bulbasaur
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="pokemon" value="squirtle" required>
-                            💧 Squirtle
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="pokemon" value="charmander" required>
-                            🔥 Charmander
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="pokemon" value="pikachu" required>
-                            ⚡ Pikachu
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">✓ Enviar pronóstico</button>
-            </form>
-        </div>
-
-        <!-- Leaderboard View -->
-        <div id="leaderboard-view" class="section hidden">
-            <h2>Pronósticos hasta ahora</h2>
-            <div id="pronosticos-list" class="pronosticos-list">
-                <p class="empty">Cargando...</p>
-            </div>
-        </div>
-
-        <!-- Admin View -->
-        <div id="admin-view" class="section hidden">
-            <div id="admin-login">
-                <div class="form-group">
-                    <label>Contraseña admin</label>
-                    <input type="password" id="admin-password" placeholder="Ingresá la contraseña">
-                </div>
-                <button class="submit-btn" onclick="checkAdminPassword()">Entrar</button>
-            </div>
-
-            <div id="admin-form" class="hidden">
-                <h2>Ingresá los datos reales del bebé</h2>
-                <div class="form-group">
-                    <label>Fecha de nacimiento</label>
-                    <div class="date-inputs">
-                        <input type="text" class="date-input" id="fecha-real-dia" placeholder="25" maxlength="2" inputmode="numeric">
-                        <span class="date-separator">/</span>
-                        <input type="text" class="date-input" id="fecha-real-mes" placeholder="07" maxlength="2" inputmode="numeric">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Hora</label>
-                    <input type="text" id="hora-real" placeholder="ej: 11:35 AM">
-                </div>
-
-                <div class="form-group">
-                    <label>Peso (kg)</label>
-                    <input type="number" id="peso-real" step="0.1" placeholder="ej: 3.5">
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de parto</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="parto-real" value="natural">
-                            Natural
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="parto-real" value="cesárea">
-                            Cesárea
-                        </label>
-                    </div>
-                </div>
-
-                <button class="submit-btn" onclick="calcularResultados()">📊 Calcular resultados</button>
-            </div>
-
-            <div id="admin-results" class="hidden">
-                <h2>🏆 Resultados finales</h2>
-                <div style="background-color: #faf8f3; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                    <p><strong>Fecha real:</strong> <span id="result-fecha"></span></p>
-                    <p><strong>Hora real:</strong> <span id="result-hora"></span></p>
-                    <p><strong>Peso real:</strong> <span id="result-peso"></span> kg</p>
-                    <p><strong>Parto:</strong> <span id="result-parto"></span></p>
-                </div>
-                <div id="ranking" class="pronosticos-list"></div>
-                <button class="submit-btn" onclick="resetAdmin()" style="margin-top: 20px;">Recalcular</button>
-            </div>
+            <div id="ranking" class="card-list"></div>
+            <button class="submit-btn" onclick="resetAdmin()" style="margin-top:20px">Recalcular</button>
         </div>
     </div>
 
     <script>
-        const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbx4HDwYGldGXI2ttrjvemuEUoVvUrgSIYngEsj0Ly-S5Ft8VXtTl15ECn3fzj4NQM_9fQ/exec';
-        const ADMIN_PASSWORD = 'admin123';
-        let pronósticos = [];
-        let isAdminAuth = false;
+        const SHEETS_URL  = 'https://script.google.com/macros/s/AKfycbx4HDwYGldGXI2ttrjvemuEUoVvUrgSIYngEsj0Ly-S5Ft8VXtTl15ECn3fzj4NQM_9fQ/exec';
+        const ADMIN_PASS  = 'admin123';
+        let pronosticos   = [];
 
-        // Tab switching
+        // ── Navigation ──────────────────────────────────────────────────────────
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const tab = btn.dataset.tab;
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                document.querySelectorAll('[id$="-view"]').forEach(view => view.classList.add('hidden'));
-                document.getElementById(tab + '-view').classList.remove('hidden');
+                document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+                document.getElementById(btn.dataset.view).classList.remove('hidden');
 
-                if (tab === 'leaderboard') {
-                    fetchPronósticos();
-                }
-                if (tab === 'admin') {
-                    isAdminAuth = false;
-                    document.getElementById('admin-login').classList.remove('hidden');
-                    document.getElementById('admin-form').classList.add('hidden');
-                    document.getElementById('admin-results').classList.add('hidden');
-                }
+                if (btn.dataset.view === 'list-view') fetchPronosticos();
+                if (btn.dataset.view === 'admin-view') resetAdminView();
             });
         });
 
-        // Form submission
+        // ── Submit form ──────────────────────────────────────────────────────────
         document.getElementById('pronostico-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const apodo = document.getElementById('apodo').value.trim();
-            const fecha_dia = document.getElementById('fecha-dia').value.padStart(2, '0');
-            const fecha_mes = document.getElementById('fecha-mes').value.padStart(2, '0');
-            const fecha = `${fecha_dia}/${fecha_mes}`;
-            const hora = document.getElementById('hora').value;
-            const peso = document.getElementById('peso').value;
-            const parto = document.querySelector('input[name="parto"]:checked').value;
-            const pokemon = document.querySelector('input[name="pokemon"]:checked').value;
+            if (!apodo) { toast('Ingresá un apodo.', 'error'); return; }
 
-            // Verificar si ya existe
-            if (pronósticos.some(p => p.apodo.toLowerCase() === apodo.toLowerCase())) {
-                showMessage('Ya hay un pronóstico registrado con este apodo. No se puede cambiar.', 'error');
-                return;
+            const dia = document.getElementById('fecha-dia').value.trim().padStart(2, '0');
+            const mes = document.getElementById('fecha-mes').value.trim().padStart(2, '0');
+            if (!dia || !mes || dia === '00' || mes === '00') {
+                toast('Ingresá una fecha válida.', 'error'); return;
+            }
+            const fecha = `${dia}/${mes}`;
+
+            const hora = document.getElementById('hora').value.trim();
+            if (!hora) { toast('Ingresá una hora.', 'error'); return; }
+
+            const peso = document.getElementById('peso').value.trim();
+            if (!peso) { toast('Ingresá el peso.', 'error'); return; }
+
+            const partoEl   = document.querySelector('input[name="parto"]:checked');
+            const pokemonEl = document.querySelector('input[name="pokemon"]:checked');
+            if (!partoEl)   { toast('Seleccioná el tipo de parto.', 'error'); return; }
+            if (!pokemonEl) { toast('Seleccioná un Pokémon.', 'error'); return; }
+
+            if (pronosticos.some(p => p.apodo.toLowerCase() === apodo.toLowerCase())) {
+                toast('Ya existe un pronóstico con ese apodo.', 'error'); return;
             }
 
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+
             try {
-                const response = await fetch(SHEETS_URL, {
+                const res = await fetch(SHEETS_URL, {
                     method: 'POST',
                     body: new URLSearchParams({
                         apodo,
                         fecha,
                         hora,
                         peso,
-                        parto,
-                        pokemon
+                        parto:   partoEl.value,
+                        pokemon: pokemonEl.value
                     })
                 });
-
-                const result = await response.json();
-                if (result.success) {
-                    document.getElementById('pronostico-form').reset();
-                    showMessage('✓ ¡Pronóstico guardado!');
-                    setTimeout(() => fetchPronósticos(), 500);
+                const json = await res.json();
+                if (json.success) {
+                    e.target.reset();
+                    toast('✓ ¡Pronóstico guardado!');
+                    setTimeout(fetchPronosticos, 600);
                 } else {
-                    showMessage('Error al guardar. Intentá de nuevo.', 'error');
+                    toast('Error al guardar. Intentá de nuevo.', 'error');
                 }
             } catch (err) {
-                showMessage('Error: ' + err.message, 'error');
+                toast('Error de conexión: ' + err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '✓ Enviar pronóstico';
             }
         });
 
-        async function fetchPronósticos() {
+        // ── Fetch & render ───────────────────────────────────────────────────────
+        async function fetchPronosticos() {
+            document.getElementById('pronosticos-list').innerHTML = '<p class="empty">Cargando...</p>';
             try {
-                const response = await fetch(SHEETS_URL);
-                const data = await response.json();
-                pronósticos = data.filter(p => p.apodo);
-                renderPronósticos();
+                const res  = await fetch(SHEETS_URL);
+                const data = await res.json();
+                pronosticos = Array.isArray(data) ? data.filter(p => p.apodo) : [];
+                renderPronosticos();
             } catch (err) {
-                console.error('Fetch error:', err);
+                document.getElementById('pronosticos-list').innerHTML =
+                    '<p class="empty">Error al cargar datos.</p>';
             }
         }
 
-        function renderPronósticos() {
-            const list = document.getElementById('pronosticos-list');
-            if (pronósticos.length === 0) {
-                list.innerHTML = '<p class="empty">Aún no hay pronósticos</p>';
+        function renderPronosticos() {
+            const el = document.getElementById('pronosticos-list');
+            if (pronosticos.length === 0) {
+                el.innerHTML = '<p class="empty">Aún no hay pronósticos.</p>';
                 return;
             }
-
-            list.innerHTML = pronósticos.map(p => `
-                <div class="pronostico-card">
-                    <div class="card-row"><strong>Apodo:</strong> <span>${p.apodo}</span></div>
-                    <div class="card-row"><strong>Fecha:</strong> <span>${p.fecha}</span></div>
-                    <div class="card-row"><strong>Hora:</strong> <span>${p.hora}</span></div>
-                    <div class="card-row"><strong>Peso:</strong> <span>${p.peso} kg</span></div>
-                    <div class="card-row"><strong>Parto:</strong> <span>${p.parto}</span></div>
+            el.innerHTML = pronosticos.map(p => `
+                <div class="card">
+                    <div class="card-row"><strong>Apodo:</strong>   <span>${p.apodo}</span></div>
+                    <div class="card-row"><strong>Fecha:</strong>   <span>${p.fecha}</span></div>
+                    <div class="card-row"><strong>Hora:</strong>    <span>${p.hora}</span></div>
+                    <div class="card-row"><strong>Peso:</strong>    <span>${p.peso} kg</span></div>
+                    <div class="card-row"><strong>Parto:</strong>   <span>${p.parto}</span></div>
                     <div class="card-row"><strong>Pokémon:</strong> <span>${p.pokemon}</span></div>
                 </div>
             `).join('');
         }
 
-        function checkAdminPassword() {
-            const password = document.getElementById('admin-password').value;
-            if (password === ADMIN_PASSWORD) {
-                isAdminAuth = true;
+        // ── Admin ────────────────────────────────────────────────────────────────
+        function loginAdmin() {
+            const pw = document.getElementById('admin-password').value;
+            if (pw === ADMIN_PASS) {
                 document.getElementById('admin-login').classList.add('hidden');
-                document.getElementById('admin-form').classList.remove('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
             } else {
-                showMessage('Contraseña incorrecta', 'error');
+                toast('Contraseña incorrecta.', 'error');
             }
         }
 
-        function calcularResultados() {
-            const fecha_dia = document.getElementById('fecha-real-dia').value.padStart(2, '0');
-            const fecha_mes = document.getElementById('fecha-real-mes').value.padStart(2, '0');
-            const fechaReal = `${fecha_dia}/${fecha_mes}`;
-            const horaReal = document.getElementById('hora-real').value;
-            const pesoReal = document.getElementById('peso-real').value;
-            const partoReal = document.querySelector('input[name="parto-real"]:checked').value;
+        async function calcularResultados() {
+            const dia  = document.getElementById('real-dia').value.trim().padStart(2, '0');
+            const mes  = document.getElementById('real-mes').value.trim().padStart(2, '0');
+            const hora = document.getElementById('real-hora').value.trim();
+            const peso = document.getElementById('real-peso').value.trim();
+            const partoEl = document.querySelector('input[name="parto-real"]:checked');
 
-            if (!fechaReal || !horaReal || !pesoReal || !partoReal) {
-                showMessage('Completá todos los datos reales', 'error');
-                return;
-            }
+            if (!dia || !mes || dia === '00' || mes === '00') { toast('Ingresá la fecha real.', 'error'); return; }
+            if (!hora)    { toast('Ingresá la hora real.', 'error'); return; }
+            if (!peso)    { toast('Ingresá el peso real.', 'error'); return; }
+            if (!partoEl) { toast('Seleccioná el tipo de parto real.', 'error'); return; }
 
-            fetchPronósticos();
+            const fechaReal = `${dia}/${mes}`;
+            const pesoReal  = parseFloat(peso);
+            const partoReal = partoEl.value;
 
-            const ranking = pronósticos.map(p => {
-                let puntos = 0;
-                const fechaP = p.fecha.replace(/'/g, '').trim();
+            await fetchPronosticos();
 
-                if (fechaP === fechaReal) {
-                    let horaP = p.hora.replace(/'/g, '').trim();
-                    const [horaP_h, horaP_m] = horaP.split(':').map(Number);
-                    const [horaR_h, horaR_m] = horaReal.split(':').map(Number);
-                    const minutosDiff = Math.abs((horaP_h * 60 + horaP_m) - (horaR_h * 60 + horaR_m));
+            const ranked = pronosticos.map(p => {
+                let pts = 0;
 
-                    if (minutosDiff <= 180) {
-                        puntos += 70;
-                    } else {
-                        puntos += 30;
-                    }
+                const mismaFecha = p.fecha.trim() === fechaReal;
+                const [ph, pm]   = (p.hora.trim()).split(':').map(Number);
+                const [rh, rm]   = hora.split(':').map(Number);
+                const diffMin    = Math.abs((ph * 60 + pm) - (rh * 60 + rm));
+
+                if (mismaFecha) {
+                    pts += diffMin <= 180 ? 70 : 30;
                 } else {
-                    let horaP = p.hora.replace(/'/g, '').trim();
-                    const [horaP_h, horaP_m] = horaP.split(':').map(Number);
-                    const [horaR_h, horaR_m] = horaReal.split(':').map(Number);
-                    const minutosDiff = Math.abs((horaP_h * 60 + horaP_m) - (horaR_h * 60 + horaR_m));
-                    if (minutosDiff <= 180) {
-                        puntos += 20;
-                    }
+                    if (diffMin <= 180) pts += 20;
                 }
 
-                const pesoP = parseFloat(p.peso);
-                const pesoR = parseFloat(pesoReal);
-                if (Math.abs(pesoP - pesoR) <= 0.5) {
-                    puntos += 50;
-                }
+                if (Math.abs(parseFloat(p.peso) - pesoReal) <= 0.5) pts += 50;
+                if (p.parto === partoReal) pts += 20;
 
-                if (p.parto === partoReal) {
-                    puntos += 20;
-                }
+                return { ...p, pts };
+            }).sort((a, b) => b.pts - a.pts);
 
-                return { ...p, puntos };
-            }).sort((a, b) => b.puntos - a.puntos);
+            document.getElementById('res-fecha').textContent = fechaReal;
+            document.getElementById('res-hora').textContent  = hora;
+            document.getElementById('res-peso').textContent  = peso;
+            document.getElementById('res-parto').textContent = partoReal;
 
-            document.getElementById('result-fecha').textContent = fechaReal;
-            document.getElementById('result-hora').textContent = horaReal;
-            document.getElementById('result-peso').textContent = pesoReal;
-            document.getElementById('result-parto').textContent = partoReal;
-
-            const rankingHtml = ranking.map((p, idx) => {
-                const podium = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `${idx + 1}.`;
+            document.getElementById('ranking').innerHTML = ranked.map((p, i) => {
+                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
                 return `
-                    <div class="pronostico-card">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span style="font-size: 20px; min-width: 30px;">${podium}</span>
-                            <div style="flex: 1;">
-                                <strong>${p.apodo}</strong>
-                            </div>
-                            <span style="background-color: #c9a574; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600;">${p.puntos} pts</span>
-                        </div>
+                    <div class="card" style="display:flex;align-items:center;gap:12px">
+                        <span style="font-size:20px;min-width:30px">${medal}</span>
+                        <span style="flex:1;font-weight:600">${p.apodo}</span>
+                        <span class="badge">${p.pts} pts</span>
                     </div>
                 `;
             }).join('');
 
-            document.getElementById('ranking').innerHTML = rankingHtml;
-
-            document.getElementById('admin-form').classList.add('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
             document.getElementById('admin-results').classList.remove('hidden');
         }
 
         function resetAdmin() {
-            document.getElementById('admin-form').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.remove('hidden');
             document.getElementById('admin-results').classList.add('hidden');
         }
 
-        function showMessage(text, type = 'success') {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = `section ${type === 'error' ? 'message error' : 'message'}`;
-            messageDiv.classList.remove('hidden');
-            setTimeout(() => messageDiv.classList.add('hidden'), 3000);
+        function resetAdminView() {
+            document.getElementById('admin-login').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('admin-results').classList.add('hidden');
+            document.getElementById('admin-password').value = '';
         }
 
-        fetchPronósticos();
+        // ── Toast ────────────────────────────────────────────────────────────────
+        let toastTimer;
+        function toast(msg, type = 'success') {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.className   = `toast${type === 'error' ? ' error' : ''}`;
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.add('hidden'), 3500);
+        }
+
+        // ── Init ─────────────────────────────────────────────────────────────────
+        fetchPronosticos();
     </script>
 </body>
 </html>
